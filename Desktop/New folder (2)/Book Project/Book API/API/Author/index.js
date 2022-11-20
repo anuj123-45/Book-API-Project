@@ -17,8 +17,13 @@ Method -> GET
 */
 
 Router.get("/all/authors", async (req, res) => {
+  try{
     const getAllAuthors = await AuthorModel.find();
     return res.json({ authors: getAllAuthors });
+  }
+  catch(error){
+    res.json({error:error.message});
+  }
   });
   
 
@@ -32,6 +37,7 @@ Method -> GET
 */
 
 Router.get("/:id", async (req, res) => {
+  try{
     const getSpecificAuthor = await AuthorModel.findOne({
       id: parseInt(req.params.id),
     });
@@ -41,6 +47,10 @@ Router.get("/:id", async (req, res) => {
     }
   
     return res.json({ author: getSpecificAuthor });
+  }
+  catch(error){
+    res.json({error:error.message});
+  }
   });
 
 
@@ -53,6 +63,7 @@ Method -> GET
 */
 
 Router.get("all/:isbn", async (req, res) => {
+  try{
     const getSpecificAuthors = await AuthorModel.findOne({
       books: req.params.isbn,
     });
@@ -64,6 +75,10 @@ Router.get("all/:isbn", async (req, res) => {
       });
     }
     return res.json({ authors: getSpecificAuthors });
+  }
+  catch(error){
+    res.json({error:error.message});
+  }
   });
 
 
@@ -93,6 +108,7 @@ Method -> Put
 */
 
 Router.put("/update/:id", async (req, res) => {
+  try{
     const updatedAuthorName = await AuthorModel.findOneAndUpdate(
       {
         id: parseInt(req.params.id),
@@ -107,6 +123,10 @@ Router.put("/update/:id", async (req, res) => {
   
 
     return res.json({ updatedAuthorName,message: "Successfully updated" });
+  }
+  catch(error){
+    res.json({error:error.message});
+  }
   });
   
   /*
@@ -118,6 +138,7 @@ Method -> Delete
 */
 
 Router.delete("/delete/:id", async (req, res) => {
+  try{
     const updatedAuthor = await AuthorModel.findOneAndDelete({
       id: parseInt(req.params.id),
     });
@@ -126,6 +147,10 @@ Router.delete("/delete/:id", async (req, res) => {
       updatedAuthor,
       message: "Author deleted successfully",
     });
+  }
+  catch(error){
+    res.json({error:error.message});
+  }
   });
   
 

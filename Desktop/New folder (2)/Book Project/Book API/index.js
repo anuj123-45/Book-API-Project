@@ -9,7 +9,6 @@ const mongoose = require("mongoose");
 
 const database = require("./database/index");
 
-// models
 
 
 // Microservices Routes
